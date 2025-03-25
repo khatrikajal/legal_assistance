@@ -1,0 +1,783 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+:root {
+    /* Dark theme colors */
+    --text-color: #edf3ff;
+    --subheading-color: #97a7ca;
+    --placeholder-color: #c3cdde;
+    --primary-color: #101623;
+    --secondary-color: #283045;
+    --secondary-hover-color: #333e58;
+    --scrollbar-color: #626a7f;
+}
+
+body.light-theme {
+    /* Light theme colors */
+    --text-color: #090c13;
+    --subheading-color: #7b8cae;
+    --placeholder-color: #606982;
+    --primary-color: #f3f7ff;
+    --secondary-color: #dce6f9;
+    --secondary-hover-color: #d2ddf2;
+    --scrollbar-color: #a2aac2;
+}
+
+body {
+    color: var(--text-color);
+    background: var(--primary-color);
+}
+
+.home-container {
+    overflow-y: auto;
+    padding: 32px 0 60px;
+    height: calc(100vh - 127px);
+    scrollbar-color: var(--scrollbar-color) transparent;
+}
+
+.home-container :where(.app-header, .suggestions, .message, .prompt-wrapper) {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 20px;
+    max-width: 990px;
+}
+
+.home-container .app-header {
+    margin-top: 3vh;
+}
+
+.app-header .heading {
+    width: fit-content;
+    font-size: 3rem;
+    background: linear-gradient(to right, #1d7efd, #8f6fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.app-header .sub-heading {
+    font-size: 2.6rem;
+    margin-top: -5px;
+    color: var(--subheading-color);
+}
+
+.home-container .suggestions {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin-top: 9.5vh;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+body.chats-active .home-container :where(.app-header, .suggestions) {
+    display: none;
+}
+
+.suggestions .suggestions-item {
+    cursor: pointer;
+    padding: 18px;
+    width: 228px;
+    flex-shrink: 0;
+    display: flex;
+    scroll-snap-align: center;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 12px;
+    justify-content: space-between;
+    background: var(--secondary-color);
+    transition: 0.3s ease;
+}
+
+.suggestions .suggestions-item:hover {
+    background: var(--secondary-hover-color);
+    color: var(--text-color);
+}
+
+.suggestions .suggestions-item .text {
+    font-size: 1.1rem;
+}
+
+.suggestions .suggestions-item .icon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    font-size: 1.4rem;
+    margin-top: 35px;
+    align-self: flex-end;
+    align-items: center;
+    border-radius: 50%;
+    justify-content: center;
+    color: #1d7efd;
+    background: var(--primary-color);
+}
+
+.suggestions .suggestions-item:nth-child(2) .icon {
+    color: #28a745;
+}
+
+.suggestions .suggestions-item:nth-child(3) .icon {
+    color: #ffc107;
+}
+
+.suggestions .suggestions-item:nth-child(4) .icon {
+    color: #6f42c1;
+}
+
+.home-container .chats-container {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.chats-container .message {
+    display: flex;
+    gap: 11px;
+    align-items: center;
+}
+
+.chats-container .message .avatar {
+    width: 43px;
+    height: 43px;
+    flex-shrink: 0;
+    align-self: flex-start;
+    border-radius: 50%;
+    padding: 6px;
+    margin-right: -7px;
+    background: var(--secondary-color);
+    border: 1px solid var(--secondary-hover-color);
+}
+
+.chats-container .message.loading .avatar {
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.chats-container .message .message-text {
+    padding: 3px 16px;
+    word-wrap: break-word;
+    white-space: pre-line;
+}
+
+.chats-container .bot-message {
+    margin: 9px auto;
+}
+
+.chats-container .user-message {
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.chats-container .user-message .message-text {
+    padding: 12px 16px;
+    max-width: 75%;
+    background: var(--secondary-color);
+    border-radius: 13px 13px 3px 13px;
+}
+
+.chats-container .user-message .img-attachment {
+    margin-top: -7px;
+    width: 50%;
+    border-radius: 13px 3px 13px 13px;
+}
+
+.chats-container .user-message .file-attachment {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    padding: 10px;
+    margin-top: -7px;
+    border-radius: 13px 3px 13px 13px;
+    background: var(--secondary-color);
+}
+
+.chats-container .user-message .file-attachment span {
+    color: #1d7efd;
+}
+
+.home-container .prompt-container {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    padding: 16px 0;
+    background: var(--primary-color);
+    margin-bottom: 40px;
+}
+
+.prompt-container :where(.prompt-wrapper, .prompt-form, .prompt-actions) {
+    display: flex;
+    gap: 12px;
+    height: 56px;
+    align-items: center;
+
+}
+
+.prompt-container .prompt-form {
+    height: 100%;
+    width: 100%;
+    border-radius: 130px;
+    background: var(--secondary-color);
+}
+
+.prompt-form .prompt-input {
+    width: 100%;
+    height: 100%;
+    background: none;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    color: var(--text-color);
+    padding-left: 24px;
+}
+
+.prompt-form .prompt-input::placeholder {
+    color: var(--placeholder-color);
+}
+
+.prompt-wrapper Button,
+a {
+    width: 56px;
+    height: 100%;
+    flex-shrink: 0;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    border: none;
+    color: var(--text-color);
+    background: var(--secondary-color);
+    transition: 0.3s ease;
+}
+
+.prompt-wrapper :is(Button, a:hover, #cancel-file-btn, .file-icon) {
+    background: var(--secondary-hover-color);
+}
+
+.prompt-form .prompt-actions {
+    gap: 5px;
+    margin-right: 7px;
+}
+
+.prompt-wrapper .prompt-form :where(.file-upload-wrapper, Button, img, a) {
+    position: relative;
+    height: 45px;
+    width: 45px;
+}
+
+.prompt-form .prompt-actions #send-prompt-btn {
+    color: #fff;
+    display: none;
+    background: #1d7efd;
+}
+
+.prompt-form .prompt-input:valid~.prompt-actions #send-prompt-btn {
+    display: block;
+}
+
+.prompt-form #send-prompt-btn:hover {
+    background: #0264e3;
+}
+
+.prompt-form .file-upload-wrapper :where(Button, img, a) {
+    display: none;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+}
+
+.prompt-form .file-upload-wrapper.active #add-file-btn {
+    display: none;
+}
+
+.prompt-form .file-upload-wrapper #add-file-btn,
+.prompt-form .file-upload-wrapper.active.img-attached img,
+.prompt-form .file-upload-wrapper.active.file-attached .file-icon,
+.prompt-form .file-upload-wrapper.active:hover #cancel-file-btn {
+    display: block;
+}
+
+.prompt-form :is(#stop-response-btn:hover, #cancel-file-btn) {
+    color: #d62939;
+}
+
+.prompt-wrapper .prompt-form .file-icon {
+    color: #1d7efd;
+}
+
+.prompt-form #stop-response-btn,
+body.bot-responding .prompt-form .file-upload-wrapper {
+    display: none;
+}
+
+body.bot-responding .prompt-form #stop-response-btn {
+    display: block;
+}
+
+.prompt-container .disclaimer-text {
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 16px 20px 0;
+    color: var(--placeholder-color);
+}
+
+
+
+/* Responsive media query code for small screens */
+@media (max-width: 768px) {
+    .home-container {
+        padding: 20px 0 100px;
+    }
+
+    .app-header :is(.heading, .sub-heading) {
+        font-size: 2rem;
+        line-height: 1.4;
+    }
+
+    .app-header .sub-heading {
+        font-size: 1.7rem;
+    }
+
+    .home-container .chats-container {
+        gap: 15px;
+    }
+
+    .chats-container .bot-message {
+        margin: 4px auto;
+    }
+
+    .prompt-container :where(.prompt-wrapper, .prompt-form, .prompt-actions) {
+        gap: 8px;
+        height: 53px;
+    }
+
+    .prompt-container Button,
+    a {
+        width: 53px;
+    }
+
+    .prompt-form :is(.file-upload-wrapper, Button, img, a) {
+        height: 42px;
+        width: 42px;
+    }
+
+    .prompt-form .prompt-input {
+        padding-left: 20px;
+    }
+
+    .prompt-form .file-upload-wrapper.active #cancel-file-btn {
+        opacity: 0;
+    }
+
+    .prompt-wrapper.hide-controls :where(#theme-toggle-btn, #delete-chats-btn, #add-chat-btn) {
+        display: none;
+    }
+}
+
+
+.avatar {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    margin-right: 10px;
+
+    /* 🚫 Explicitly stop rotation */
+    animation: none !important;
+    transform: none !important;
+}
+
+.floating-menu {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    /* Aligns buttons to the right side */
+    z-index: 999;
+}
+
+.toggle-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    margin-bottom: 27px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    /* Keeps it fixed in place */
+    z-index: 1000;
+    /* Ensures '+' is above the floating buttons */
+}
+
+.floating-buttons {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    /* Position the floating buttons above the '+' */
+    bottom: 60px;
+    /* Adjusts the floating buttons to appear above '+' */
+    right: 0;
+    /* Aligns to the right side */
+}
+
+.floating-buttons .button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.floating-buttons .button.cancel {
+    background-color: #f44336;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.floating-buttons .button.reschedule {
+    background-color: #ff9800;
+    margin-top: 10px;
+}
+
+.floating-buttons .button.check {
+    background-color: #2196F3;
+    margin-top: 10px;
+}
+
+.floating-buttons.visible {
+    display: flex;
+    /* Show the buttons when toggled */
+}
+
+.ask-leagl-question {
+    font-size: 12px;
+    color: #f9f4f4;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    text-align: center;
+
+}
+
+
+
+.blurred-background::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    z-index: 1;
+}
+
+#case-type-select {
+    margin-top: 20px;
+    appearance: none;
+    background-color: #120049;
+    /* Dark blue background */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    width: 70%;
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Add dropdown arrow */
+#case-type-select::-ms-expand {
+    display: none;
+}
+
+
+/* Style the dropdown options */
+#case-type-select option {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#case-type-select {
+    position: relative;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 18px;
+}
+
+#case-type-select:hover,
+#get-advice-btn:hover {
+    color: black;
+    /* Change text color to black on hover */
+}
+
+#case-type-select:focus {
+    outline: none;
+    border: 2px solid #6200ea;
+    box-shadow: 0px 4px 10px rgba(98, 0, 234, 0.5);
+}
+
+/* Customize dropdown when expanded */
+select:focus>option {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#case-type-select:hover {
+    background-color: transparent;
+    border: #08101f;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+
+}
+
+
+
+#case-type-select option {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#case-type-select {
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+#case-type-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background: #eceef5;
+    /* Semi-transparent background */
+    backdrop-filter: blur(20px);
+    /* Subtle blur effect */
+
+    color: #fff;
+    border: solid 1px #090c13;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+
+    padding: 30px;
+    width: 400px;
+
+    text-align: center;
+    z-index: 2;
+
+}
+
+
+#get-advice-btn {
+    background-color: #120049;
+    /* Original background color */
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    width: 70%;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+#get-advice-btn:hover {
+    background-color: transparent;
+    border: #e0e5ee solid 1px;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+
+}
+
+#advice-text {
+    margin-top: 20px;
+    color: #000000;
+    font-weight: bold;
+}
+
+#advice-text:hover {
+    color: #171717;
+    /* Change to your desired color */
+    text-shadow: 0 0 8px #000000;
+    /* Optional glowing text effect */
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 15px 4px rgba(10, 1, 24, 0.8);
+    }
+
+    50% {
+        box-shadow: 0 0 25px 6px rgb(22, 3, 52);
+    }
+
+    100% {
+        box-shadow: 0 0 15px 4px rgba(38, 4, 84, 0.8);
+    }
+}
+
+#case-type-popup {
+    animation: glow 2s infinite alternate;
+}
+
+#case-type-popup h3 {
+    color: #000;
+    /* Set it to black or any desired color */
+}
+
+/* Style the dropdown options */
+#case-type-select option {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Style dropdown container */
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Custom dropdown arrow */
+.custom-dropdown::after {
+    content: "▼";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    pointer-events: none;
+}
+
+/* Hover effect for select box */
+
+
+/* Style the dropdown when expanded */
+#case-type-select:focus {
+    outline: none;
+    border: 2px solid #6200ea;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+#review-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    background: #fff;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    z-index: 1000;
+    padding: 20px;
+    box-shadow: #000 0px 0px 10px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #111827;
+
+}
+
+.popup-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.review-left,
+.review-right {
+    width: 48%;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+
+}
+
+.upload-box {
+    width: 100%;
+    height: 150px;
+    border: 2px dashed #008CBA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    margin: 15px 0;
+    border-radius: 8px;
+}
+
+.upload-box:hover {
+    background: #e3f2fd;
+}
+
+.upload-btn {
+    padding: 10px 20px;
+    background: #008CBA;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.upload-btn:hover {
+    background: #005f7f;
+}
+
+#reviewContent {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    overflow-y: auto;
+    color: black;
+    /* Text color set to black */
+}
